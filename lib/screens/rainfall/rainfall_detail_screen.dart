@@ -11,8 +11,9 @@ class RainfallDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<AppProvider>();
-    if (provider.rainfall == null || provider.policy == null)
+    if (provider.rainfall == null || provider.policy == null) {
       return const Center(child: CircularProgressIndicator());
+    }
     final rainfall = provider.rainfall!;
     final policy = provider.policy!;
     final gap = policy.threshold - rainfall.rainfall;

@@ -1,0 +1,57 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "📱 Flutter (Chrome Web - Port 3000)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "-d",
+        "chrome",
+        "--web-port",
+        "3000"
+      ]
+    },
+    {
+      "name": "🖥️ Flutter (Windows Desktop)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "-d",
+        "windows"
+      ]
+    },
+    {
+      "name": "☕ Ganesh Backend (Port 8080)",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "com.coderabbits.fs2604.Fs2604BackendApplication",
+      "projectName": "microinsurance-backend"
+    },
+    {
+      "name": "🌧️ Raja Trigger Engine (Port 8081)",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "com.coderabbits.raja.RajaTriggerApplication",
+      "projectName": "raja-rainfall-trigger"
+    },
+    {
+      "name": "💳 Anosh Payout Service (Port 8082)",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "com.coderabbits.anosh.AnoshPayoutApplication",
+      "projectName": "anosh-payout-audit"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "🚀 Full Mesh: 3 Backends + Flutter Web",
+      "configurations": [
+        "☕ Ganesh Backend (Port 8080)",
+        "🌧️ Raja Trigger Engine (Port 8081)",
+        "💳 Anosh Payout Service (Port 8082)",
+        "📱 Flutter (Chrome Web - Port 3000)"
+      ]
+    }
+  ]
+}

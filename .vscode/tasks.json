@@ -1,0 +1,68 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 1. Start All 3 Backend Microservices",
+      "type": "shell",
+      "command": ".\\start-all.bat",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "☕ 2. Start Ganesh Backend Only (Port 8080)",
+      "type": "shell",
+      "command": "mvn spring-boot:run",
+      "options": {
+        "cwd": "${workspaceFolder}/backend/fs2604-backend"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🌧️ 3. Start Raja Trigger Engine (Port 8081)",
+      "type": "shell",
+      "command": "mvn spring-boot:run",
+      "options": {
+        "cwd": "${workspaceFolder}/backend/fs2604-raja-trigger"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "💳 4. Start Anosh Payout Service (Port 8082)",
+      "type": "shell",
+      "command": "mvn spring-boot:run",
+      "options": {
+        "cwd": "${workspaceFolder}/backend/fs2604-anosh-payout"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "📱 5. Run Flutter Web (Chrome - Port 3000)",
+      "type": "shell",
+      "command": "flutter run -d chrome --web-port 3000",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "🖥️ 6. Run Flutter Windows Desktop",
+      "type": "shell",
+      "command": "flutter run -d windows",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "🧪 7. Run All Tests (Flutter + Backends)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File .\\run-all-tests.ps1",
+      "problemMatcher": []
+    }
+  ]
+}

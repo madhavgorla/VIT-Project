@@ -11,8 +11,9 @@ class PayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<AppProvider>();
     final payout = provider.payout;
-    if (payout == null)
+    if (payout == null) {
       return const Center(child: Text('No payout information available'));
+    }
     final triggered = payout.status != 'MONITORING';
     final statusColor = triggered ? AppColors.green : AppColors.amber;
     return ListView(

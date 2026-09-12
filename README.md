@@ -1,66 +1,112 @@
-# Code Rabbits — FS-2604 Farmer Mobile App
+# FS-2604: Offline-First Parametric Micro-Insurance System
+**Team Code Rabbits** — Hackathon Final Integrated Full-Stack Repository
 
-Madhav's frontend module for **Offline-First Parametric Micro-Insurance for Low-Connectivity Users**.
+---
 
-## What is included
-- Flutter/Dart farmer-facing mobile UI
-- SQLite offline cache with six tables
-- Offline sync queue and retry handling
-- Connectivity banner and last-known-data behavior
-- Rainfall threshold visualization
-- Payout status visualization
-- Text-to-Speech voice help
-- Telugu, Hindi and English voice-language architecture
-- Configurable Spring Boot `BASE_URL`
-- Hackathon demo scenarios: Normal, Trigger, Offline
-- REST API client for the team backend
+## 👥 Team Roles & Modules
+- **Madhav (Frontend):** Flutter Mobile & Web App, SQLite local offline-first caching, offline sync engine, TTS multilingual voice help (Telugu, Hindi, English).
+- **Ganesh (Backend & API Hub):** Spring Boot 3 Central Microservice Mesh Hub, Farmer & Policy Management, Flutter REST Integration Adapter, Emergency ₹10,000 Relief Engine (Port `8080`).
+- **Raja (Rainfall & Trigger Engine):** Automated IMD AWS & CHIRPS Satellite precipitation ingestion, deficit analysis, parametric trigger events (Port `8081`).
+- **Anosh (Payout & Audit Engine):** Automated claim disbursement, instant compensation engine (default ₹10,000), SHA-256 immutable audit trails (Port `8082`).
 
-## Team boundaries
-- **Madhav:** Flutter, SQLite, TTS, offline UX, sync client and API consumption
-- **Ganesh:** Spring Boot REST APIs
-- **Raja:** IMD/CHIRPS rainfall ingestion and trigger engine
-- **Anosh:** PostgreSQL, payout recording and audit trails
+---
 
-## Run
-Install Flutter 3.x and Android Studio, then:
+## 🌐 Port Allocations (No Conflicts)
+| Service / Component | Port | URL / Health / Documentation |
+| :--- | :--- | :--- |
+| **Ganesh: Central API Hub** | `8080` | `http://localhost:8080/swagger-ui.html` |
+| **Raja: Trigger Engine** | `8081` | `http://localhost:8081/swagger-ui.html` |
+| **Anosh: Payout & Audit** | `8082` | `http://localhost:8082/swagger-ui.html` |
+| **Madhav: Flutter Web App** | `3000` | `http://localhost:3000` |
 
+---
+
+## 🚀 How to Run in Visual Studio Code (Step-by-Step)
+
+### Option 1: Using VS Code Run & Debug (Recommended 1-Click)
+1. Open this repository folder in **VS Code**:
+   ```bash
+   code .
+   ```
+2. Open the **Run and Debug** view (`Ctrl + Shift + D` on Windows / Linux).
+3. In the dropdown at the top, select:
+   - **`📱 Flutter (Chrome Web - Port 3000)`** to launch the Flutter UI in Google Chrome.
+   - Or **`🖥️ Flutter (Windows Desktop)`** to launch as a native Windows desktop app.
+   - Or **`🚀 Full Mesh: 3 Backends + Flutter Web`** to launch the entire stack together.
+4. Press **`F5`** or click the green **Play (▷)** button.
+
+---
+
+### Option 2: Using the Integrated VS Code Terminal (1-Command Launch)
+Open the integrated terminal in VS Code (`Ctrl + ` ` `) and run:
+
+```cmd
+.\start-all.bat
+```
+*(or with PowerShell: `.\start-all.ps1`)*
+
+This starts all 3 backend microservices and the Flutter frontend in separate organized terminal windows!
+
+---
+
+### Option 3: Running Services Individually in VS Code Terminals
+
+#### Terminal 1 — Ganesh's Backend Hub (Port 8080):
 ```bash
-flutter pub get
-flutter analyze
-flutter run
+cd backend/fs2604-backend
+mvn spring-boot:run
 ```
 
-To run independently on a laptop in Chrome, use:
-
+#### Terminal 2 — Raja's Trigger Engine (Port 8081):
 ```bash
-flutter run -d chrome --web-port 8080
+cd backend/fs2604-raja-trigger
+mvn spring-boot:run
 ```
 
-Then open `http://localhost:8080`. The phone and USB cable are not required.
-The project also includes a Windows desktop target; building it requires Visual Studio with the **Desktop development with C++** workload.
+#### Terminal 3 — Anosh's Payout & Audit Engine (Port 8082):
+```bash
+cd backend/fs2604-anosh-payout
+mvn spring-boot:run
+```
 
-For an Android emulator, the default backend URL is `http://10.0.2.2:8080`.
-For a physical phone, set the backend URL in **Settings → Spring Boot BASE_URL** to the computer's LAN IP, e.g. `http://192.168.1.10:8080`.
+#### Terminal 4 — Madhav's Flutter Frontend (Port 3000):
+```bash
+flutter run -d chrome --web-port 3000
+```
+*(For Android emulator: simply run `flutter run` - it will automatically use `http://10.0.2.2:8080`)*
 
-## Demo
-The app starts with safe local demo data so the frontend can be demonstrated without a backend.
+---
 
-Settings → Demo scenario:
-1. **Normal rainfall:** 51 mm vs 45 mm → Monitoring.
-2. **Deficit rainfall:** 32 mm vs 45 mm → Trigger detected + payout initiated.
-3. **Offline simulation:** shows offline-first UI and cached information.
+## 🧪 Verification & Automated Testing
+To run the automated health check and complete test suite across both Frontend and all 3 Backend microservices, execute:
 
-> Demo data is clearly intended for demonstration. Production trigger/payout decisions must come from the backend.
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run-all-tests.ps1
+```
 
-## Backend contract used by the client
-- `POST /api/farmers`
-- `GET /api/farmers/{id}`
-- `POST /api/policies`
-- `GET /api/policies/farmer/{farmerId}`
-- `GET /api/rainfall/{district}`
-- `GET /api/payout/{policyId}`
-- `GET /api/notifications/{farmerId}`
-- `POST /api/sync`
+Or run tests individually:
+```bash
+# Frontend analysis & tests
+flutter analyze    # 0 issues found
+flutter test       # All widget/unit tests pass
 
-## Validation note
-The project has been checked with Flutter 3.38.5 and Dart 3.10.4. Dependencies resolve successfully and the existing Flutter test suite passes. Analyzer output contains only informational lints.
+# Backend microservices tests
+mvn -f backend/fs2604-backend/pom.xml test
+mvn -f backend/fs2604-raja-trigger/pom.xml test
+mvn -f backend/fs2604-anosh-payout/pom.xml test
+```
+
+---
+
+## 💡 Key Features & Integration Highlights
+1. **Dynamic Platform Base URL:**
+   - Automatically connects to `http://localhost:8080` when running on Web or Desktop.
+   - Automatically connects to `http://10.0.2.2:8080` when running inside the Android emulator.
+2. **Offline-First SQLite Cache:**
+   - 6 local DAOs (`farmer_dao`, `policy_dao`, `rainfall_dao`, `payout_dao`, `notification_dao`, `sync_dao`) ensure the farmer has full offline capability even in zero-connectivity areas.
+   - Actions performed offline are queued in SQLite and auto-reconciled with `POST /api/sync` once internet connectivity is restored.
+3. **Emergency ₹10,000 Rainfall Relief:**
+   - Directly triggered when rainfall drops below the parametric crop threshold (e.g. 34mm vs 45mm).
+   - Automated payout record generated with immutable SHA-256 audit reference.
+4. **Multilingual Text-to-Speech:**
+   - Supports regional voice readouts in Telugu (`te-IN`), Hindi (`hi-IN`), and English (`en-IN`).

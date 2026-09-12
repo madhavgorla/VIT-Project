@@ -77,6 +77,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             FilledButton.icon(
               onPressed: () async {
                 if (name.text.trim().isEmpty) return;
+                final navigator = Navigator.of(context);
                 await context.read<AppProvider>().registerFarmer(
                       name: name.text.trim(),
                       phone: phone.text.trim(),
@@ -84,7 +85,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       village: village.text.trim(),
                       language: language,
                     );
-                if (mounted) Navigator.pushReplacementNamed(context, '/app');
+                if (mounted) {
+                  navigator.pushReplacementNamed('/app');
+                }
               },
               icon: const Icon(Icons.shield_outlined),
               label: const Text('Create Farmer Profile'),

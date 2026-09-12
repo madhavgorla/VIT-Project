@@ -8,7 +8,7 @@ import '../../models/payout_model.dart';
 
 class ApiService {
   String baseUrl;
-  ApiService({this.baseUrl = ApiConstants.defaultBaseUrl});
+  ApiService({String? baseUrl}) : baseUrl = baseUrl ?? ApiConstants.defaultBaseUrl;
   Uri _uri(String path) =>
       Uri.parse('${baseUrl.replaceFirst(RegExp(r'/$'), '')}$path');
   Map<String, String> get _headers =>
@@ -74,7 +74,8 @@ class ApiService {
   }
 
   static void _ok(http.Response r) {
-    if (r.statusCode < 200 || r.statusCode >= 300)
+    if (r.statusCode < 200 || r.statusCode >= 300) {
       throw Exception('Server returned ${r.statusCode}');
+    }
   }
 }

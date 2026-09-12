@@ -17,8 +17,9 @@ class HomeDashboardScreen extends StatelessWidget {
     if (provider.loading ||
         provider.farmer == null ||
         provider.policy == null ||
-        provider.rainfall == null)
+        provider.rainfall == null) {
       return const Center(child: CircularProgressIndicator());
+    }
     final farmer = provider.farmer!;
     final policy = provider.policy!;
     final rainfall = provider.rainfall!;

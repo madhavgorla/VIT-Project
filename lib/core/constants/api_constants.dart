@@ -1,5 +1,12 @@
+import 'package:flutter/foundation.dart';
+
 class ApiConstants {
-  static const String defaultBaseUrl = 'http://10.0.2.2:8080';
+  static String get defaultBaseUrl {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+      return 'http://10.0.2.2:8080';
+    }
+    return 'http://localhost:8080';
+  }
   static const Duration timeout = Duration(seconds: 12);
 
   static String farmers(String id) => '/api/farmers/$id';

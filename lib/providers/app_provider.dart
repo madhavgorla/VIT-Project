@@ -141,7 +141,7 @@ class AppProvider extends ChangeNotifier {
 
   Future<void> applyDemoMode() async {
     if (policy == null || farmer == null) return;
-    if (demoMode == 'NORMAL')
+    if (demoMode == 'NORMAL') {
       rainfall = Rainfall(
           id: 'rain-demo-normal',
           district: farmer!.district,
@@ -149,7 +149,8 @@ class AppProvider extends ChangeNotifier {
           threshold: policy!.threshold,
           source: 'DEMO / IMD',
           triggerMet: false);
-    if (demoMode == 'TRIGGER')
+    }
+    if (demoMode == 'TRIGGER') {
       rainfall = Rainfall(
           id: 'rain-demo-trigger',
           district: farmer!.district,
@@ -157,6 +158,7 @@ class AppProvider extends ChangeNotifier {
           threshold: policy!.threshold,
           source: 'DEMO / CHIRPS',
           triggerMet: true);
+    }
     if (demoMode == 'OFFLINE') {
       online = false;
     } else {
@@ -172,13 +174,14 @@ class AppProvider extends ChangeNotifier {
         auditRef: triggered ? 'AUD-DEMO-TRIGGER' : 'AUD-DEMO-NORMAL');
     await rainfallDao.upsert(rainfall!);
     await payoutDao.upsert(payout!);
-    if (triggered)
+    if (triggered) {
       await notificationDao.upsert(AppNotification(
           id: 'trigger-${DateTime.now().millisecondsSinceEpoch}',
           title: 'Trigger Detected',
           message:
               'Rainfall is ${rainfall!.rainfall} mm against ${policy!.threshold} mm threshold.',
           type: 'TRIGGER'));
+    }
   }
 
   Future<void> refreshFromBackend({bool silent = false}) async {

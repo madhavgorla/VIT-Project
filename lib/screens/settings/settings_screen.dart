@@ -152,8 +152,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       child: Text('Offline Mode - Saved data'))
                                 ],
                                 onChanged: (value) {
-                                  if (value != null)
+                                  if (value != null) {
                                     provider.setDemoMode(value);
+                                  }
                                 })
                           ]))),
               const SizedBox(height: 18),
