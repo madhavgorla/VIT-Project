@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "name": "1. Ganesh - Backend & APIs (8080)",
+      "path": "fs2604-backend"
+    },
+    {
+      "name": "2. Raja - Rainfall & Trigger Engine (8081)",
+      "path": "fs2604-raja-trigger"
+    },
+    {
+      "name": "3. Anosh - Database & Payout (8082)",
+      "path": "fs2604-anosh-payout"
+    }
+  ],
+  "settings": {
+    "java.configuration.updateBuildConfiguration": "interactive"
+  }
+}

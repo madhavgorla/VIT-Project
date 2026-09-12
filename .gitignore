@@ -7,3 +7,10 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 .metadata
+
+# Java and Maven artifacts
+**/target/
+*.class
+*.jar
+*.war
+*.log

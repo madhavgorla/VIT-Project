@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: fs2604-microinsurance-backend
+  datasource:
+    url: jdbc:h2:mem:fs2604db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+# Module Integration Settings - LIVE INTER-SERVICE CONNECTION
+integration:
+  raja:
+    name: "Raja - Rainfall + Trigger Engine (IMD/CHIRPS)"
+    base-url: "http://localhost:8081"
+    simulation-mode: false # Live connection to Raja's microservice on port 8081
+  anosh:
+    name: "Anosh - Database + Payout + Audit"
+    base-url: "http://localhost:8082"
+    simulation-mode: false # Live connection to Anosh's microservice on port 8082
+  madhav:
+    name: "Madhav - Farmer Mobile App (Flutter + SQLite + TTS)"
+    default-language: "te" # "te" (Telugu), "hi" (Hindi), "en" (English)

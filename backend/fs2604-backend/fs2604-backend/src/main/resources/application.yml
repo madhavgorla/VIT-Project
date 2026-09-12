@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: fs2604-microinsurance-backend
+  datasource:
+    url: jdbc:h2:mem:fs2604db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+# Module Integration Settings (Code Rabbits Hackathon Team)
+integration:
+  raja:
+    name: "Raja - Rainfall + Trigger Engine (IMD/CHIRPS)"
+    base-url: "http://localhost:8081"
+    simulation-mode: true # Set to false when Raja's microservice is running
+  anosh:
+    name: "Anosh - Database + Payout + Audit"
+    base-url: "http://localhost:8082"
+    simulation-mode: true # Set to false when Anosh's microservice is running
+  madhav:
+    name: "Madhav - Farmer Mobile App (Flutter + SQLite + TTS)"
+    default-language: "te" # "te" (Telugu), "hi" (Hindi), "en" (English)
